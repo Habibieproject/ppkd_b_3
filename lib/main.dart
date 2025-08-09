@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:ppkd_b_3/day_10/login_screen.dart';
+import 'package:ppkd_b_3/day_12/main_screen.dart';
 import 'package:ppkd_b_3/day_7/gridview.dart';
 
 void main() {
+  initializeDateFormatting("id_ID");
   runApp(const MyApp());
 }
 
@@ -15,6 +18,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
+        datePickerTheme: DatePickerThemeData(
+          backgroundColor: Colors.blue.shade100,
+        ),
         // This is the theme of your application.
         //
         // TRY THIS: Try running your application with "flutter run". You'll see
@@ -36,6 +42,7 @@ class MyApp extends StatelessWidget {
       routes: {
         "/login": (context) => LoginScreen(),
         Day7GridView.id: (context) => Day7GridView(),
+        MainScreen.id: (context) => MainScreen(),
       },
       // home: LoginScreen(),
 
