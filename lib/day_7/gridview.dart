@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class Day7GridView extends StatelessWidget {
   const Day7GridView({super.key});
-
+  static const id = "/day7grid";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
