@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ppkd_b_3/day_12/home.dart';
+import 'package:ppkd_b_3/day_16/log_out_button.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -13,7 +14,7 @@ class _MainScreenState extends State<MainScreen> {
   static const List<Widget> _widgetOptions = <Widget>[
     HomeScreen(),
     Text("A"),
-    Text("A"),
+    LogOutButton(),
   ];
 
   @override

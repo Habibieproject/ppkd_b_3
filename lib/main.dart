@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:ppkd_b_3/day_10/login_screen.dart';
 import 'package:ppkd_b_3/day_12/main_screen.dart';
+import 'package:ppkd_b_3/day_16/splash_screen.dart';
 import 'package:ppkd_b_3/day_7/gridview.dart';
 
 void main() {
@@ -38,9 +39,10 @@ class MyApp extends StatelessWidget {
         // tested with just a hot reload.
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.lightGreen),
       ),
-      initialRoute: "/login",
+      initialRoute: Day16SplashScreen.id,
       routes: {
         "/login": (context) => LoginScreen(),
+        Day16SplashScreen.id: (context) => Day16SplashScreen(),
         Day7GridView.id: (context) => Day7GridView(),
         MainScreen.id: (context) => MainScreen(),
       },

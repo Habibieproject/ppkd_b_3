@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:ppkd_b_3/day_12/main_screen.dart';
+import 'package:ppkd_b_3/day_16/shared_preference.dart';
 import 'package:ppkd_b_3/extension/navigation.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
-
+  static const id = "/login";
   @override
   State<LoginScreen> createState() => _LoginScreenState();
 }
@@ -81,6 +82,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     // Navigator.pushNamed(context, MeetDuaBelasB.id);
                     // context.push(Day7GridView());
                     // context.pushNamed("/day7grid");
+                    PreferenceHandler.saveLogin();
                     context.pushNamed(MainScreen.id);
                     // context.pushReplacement(Day9Form());
                   },
