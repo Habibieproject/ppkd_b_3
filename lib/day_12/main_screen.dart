@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ppkd_b_3/day_12/home.dart';
-import 'package:ppkd_b_3/day_16/log_out_button.dart';
+import 'package:ppkd_b_3/day_16/widgets/log_out_button.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});

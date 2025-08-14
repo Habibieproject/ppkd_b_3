@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:ppkd_b_3/day_10/login_screen.dart';
 import 'package:ppkd_b_3/day_12/main_screen.dart';
-import 'package:ppkd_b_3/day_16/splash_screen.dart';
+import 'package:ppkd_b_3/day_16/views/splash_screen.dart';
 import 'package:ppkd_b_3/day_7/gridview.dart';
 
 void main() {

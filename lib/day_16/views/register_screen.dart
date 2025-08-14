@@ -1,46 +1,51 @@
 import 'package:flutter/material.dart';
-import 'package:ppkd_b_3/day_12/main_screen.dart';
-import 'package:ppkd_b_3/day_16/preference/shared_preference.dart';
+import 'package:ppkd_b_3/day_16/model/user.dart';
 import 'package:ppkd_b_3/day_16/sqflite/db_helper.dart';
-import 'package:ppkd_b_3/day_16/views/register_screen.dart';
-import 'package:ppkd_b_3/extension/navigation.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
-  static const id = "/login";
+class RegisterScreen extends StatefulWidget {
+  const RegisterScreen({super.key});
+  static const id = "/register";
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<RegisterScreen> createState() => _RegisterScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _RegisterScreenState extends State<RegisterScreen> {
   final TextEditingController emailController = TextEditingController();
+  final TextEditingController nameController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   bool isVisibility = false;
+  bool isLoading = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(body: Stack(children: [buildBackground(), buildLayer()]));
   }
 
-  login() async {
+  void registerUser() async {
+    isLoading = true;
+    setState(() {});
     final email = emailController.text.trim();
     final password = passwordController.text.trim();
-    if (email.isEmpty || password.isEmpty) {
+    final name = nameController.text.trim();
+    if (email.isEmpty || password.isEmpty || name.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("Email dan Password tidak boleh kosong")),
+        const SnackBar(
+          content: Text("Email, Password, dan Nama tidak boleh kosong"),
+        ),
       );
-      // isLoading = false;
+      isLoading = false;
 
       return;
     }
-    final userData = await DbHelper.loginUser(email, password);
-    if (userData != null) {
-      PreferenceHandler.saveLogin();
-      context.pushReplacementNamed(MainScreen.id);
-    } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("Email atau Password salah")),
-      );
-    }
+    final user = User(email: email, password: password, name: name);
+    await DbHelper.registerUser(user);
+    Future.delayed(const Duration(seconds: 1)).then((value) {
+      isLoading = false;
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text("Pendaftaran berhasil")));
+    });
+    setState(() {});
+    isLoading = false;
   }
 
   SafeArea buildLayer() {
@@ -53,13 +58,8 @@ class _LoginScreenState extends State<LoginScreen> {
             // crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Text(
-                "Welcome Back",
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-              ),
-              height(12),
-              Text(
-                "Login to access your account",
-                // style: TextStyle(fontSize: 14, color: AppColor.gray88),
+                "Register",
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
               height(24),
               buildTitle("Email Address"),
@@ -68,7 +68,13 @@ class _LoginScreenState extends State<LoginScreen> {
                 hintText: "Enter your email",
                 controller: emailController,
               ),
-
+              height(16),
+              buildTitle("Name"),
+              height(12),
+              buildTextField(
+                hintText: "Enter your name",
+                controller: nameController,
+              ),
               height(16),
               buildTitle("Password"),
               height(12),
@@ -103,22 +109,24 @@ class _LoginScreenState extends State<LoginScreen> {
                 height: 56,
                 child: ElevatedButton(
                   onPressed: () {
-                    login();
+                    registerUser();
                   },
                   style: ElevatedButton.styleFrom(
-                    // backgroundColor: AppColor.blueButton,
+                    backgroundColor: Colors.blue,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(6),
                     ),
                   ),
-                  child: Text(
-                    "Login",
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
-                  ),
+                  child: isLoading
+                      ? CircularProgressIndicator()
+                      : Text(
+                          "Daftar",
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
+                        ),
                 ),
               ),
               height(16),
@@ -182,7 +190,6 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   TextButton(
                     onPressed: () {
-                      context.push(RegisterScreen());
                       // Navigator.pushReplacement(
                       //   context,
                       //   MaterialPageRoute(builder: (context) => MeetEmpatA()),

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:ppkd_b_3/day_10/login_screen.dart';
 import 'package:ppkd_b_3/day_12/main_screen.dart';
-import 'package:ppkd_b_3/day_16/app_image.dart';
-import 'package:ppkd_b_3/day_16/shared_preference.dart';
+import 'package:ppkd_b_3/day_16/preference/shared_preference.dart';
+import 'package:ppkd_b_3/day_16/utils/app_image.dart';
 import 'package:ppkd_b_3/extension/navigation.dart';
 
 class Day16SplashScreen extends StatefulWidget {

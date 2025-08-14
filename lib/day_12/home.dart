@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:ppkd_b_3/day_12/input_widget.dart';
 import 'package:ppkd_b_3/day_14/list_listbuilder.dart';
 import 'package:ppkd_b_3/day_15/home_a.dart';
+import 'package:ppkd_b_3/day_16/views/user_screen.dart';
 import 'package:ppkd_b_3/day_4_5/start.dart';
 import 'package:ppkd_b_3/day_6/day_6.dart';
 import 'package:ppkd_b_3/extension/navigation.dart';
@@ -21,6 +22,7 @@ class _HomeScreenState extends State<HomeScreen> {
     InputWidget(),
     Day14ListOnListViewBuilder(),
     Day15ParsingData(),
+    Day16UserScreen(),
   ];
   void onItemTap(int index) {
     setState(() {
@@ -66,6 +68,12 @@ class _HomeScreenState extends State<HomeScreen> {
               title: Text("Day 15"),
               onTap: () {
                 onItemTap(4);
+              },
+            ),
+            ListTile(
+              title: Text("Day 16"),
+              onTap: () {
+                onItemTap(5);
               },
             ),
           ],
