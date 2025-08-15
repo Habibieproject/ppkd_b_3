@@ -45,4 +45,20 @@ class DbHelper {
     final List<Map<String, dynamic>> results = await db.query('users');
     return results.map((e) => User.fromMap(e)).toList();
   }
+
+  static Future<void> updateUser(User user) async {
+    final db = await databaseHelper();
+    await db.update(
+      'users',
+      user.toMap(),
+      where: 'id = ?',
+      whereArgs: [user.id],
+      conflictAlgorithm: ConflictAlgorithm.replace,
+    );
+  }
+
+  static Future<void> deleteUser(int id) async {
+    final db = await databaseHelper();
+    await db.delete('users', where: 'id = ?', whereArgs: [id]);
+  }
 }

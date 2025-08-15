@@ -76,6 +76,72 @@ class _Day16UserScreenState extends State<Day16UserScreen> {
                 return ListTile(
                   title: Text(dataUserLogin.name),
                   subtitle: Text(dataUserLogin.email),
+                  trailing: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      IconButton(
+                        onPressed: () {
+                          showDialog(
+                            context: context,
+                            builder: (context) => AlertDialog(
+                              title: Text('Edit Data'),
+                              content: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  TextFormConst(
+                                    controller: nameController
+                                      ..text = dataUserLogin.name,
+                                    hintText: 'Nama',
+                                  ),
+                                  SizedBox(height: 12),
+                                  TextFormConst(
+                                    controller: emailController
+                                      ..text = dataUserLogin.email,
+                                    hintText: 'Email',
+                                  ),
+                                  SizedBox(height: 12),
+
+                                  TextFormConst(
+                                    controller: passwordController
+                                      ..text = dataUserLogin.password,
+                                    hintText: 'Password',
+                                  ),
+                                ],
+                              ),
+                              actions: [
+                                ElevatedButton(
+                                  onPressed: () {
+                                    final dataUser = User(
+                                      id: dataUserLogin.id!,
+                                      email: emailController.text,
+                                      password: passwordController.text,
+                                      name: nameController.text.trim(),
+                                    );
+                                    DbHelper.updateUser(dataUser);
+                                    getUser();
+                                    Navigator.pop(context);
+                                  },
+                                  child: Text('Simpan'),
+                                ),
+                                ElevatedButton(
+                                  onPressed: () => Navigator.pop(context),
+                                  child: Text('Batal'),
+                                ),
+                              ],
+                            ),
+                          );
+                        },
+                        icon: Icon(Icons.edit),
+                      ),
+                      IconButton(
+                        onPressed: () {
+                          DbHelper.deleteUser(dataUserLogin.id!);
+                          getUser();
+                        },
+                        icon: Icon(Icons.delete),
+                      ),
+                    ],
+                  ),
                 );
               },
             ),
