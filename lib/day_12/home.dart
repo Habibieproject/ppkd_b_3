@@ -6,6 +6,7 @@ import 'package:ppkd_b_3/day_16/views/user_screen.dart';
 import 'package:ppkd_b_3/day_4_5/start.dart';
 import 'package:ppkd_b_3/day_6/day_6.dart';
 import 'package:ppkd_b_3/extension/navigation.dart';
+import 'package:ppkd_b_3/random_picker_app/random_picker_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -23,6 +24,7 @@ class _HomeScreenState extends State<HomeScreen> {
     Day14ListOnListViewBuilder(),
     Day15ParsingData(),
     Day16UserScreen(),
+    RandomPickerScreen(),
   ];
   void onItemTap(int index) {
     setState(() {
@@ -74,6 +76,12 @@ class _HomeScreenState extends State<HomeScreen> {
               title: Text("Day 16"),
               onTap: () {
                 onItemTap(5);
+              },
+            ),
+            ListTile(
+              title: Text("Random Picker"),
+              onTap: () {
+                onItemTap(6);
               },
             ),
           ],
