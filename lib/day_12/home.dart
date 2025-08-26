@@ -3,6 +3,7 @@ import 'package:ppkd_b_3/day_12/input_widget.dart';
 import 'package:ppkd_b_3/day_14/list_listbuilder.dart';
 import 'package:ppkd_b_3/day_15/home_a.dart';
 import 'package:ppkd_b_3/day_16/views/user_screen.dart';
+import 'package:ppkd_b_3/day_23/view/get_api.dart';
 import 'package:ppkd_b_3/day_4_5/start.dart';
 import 'package:ppkd_b_3/day_6/day_6.dart';
 import 'package:ppkd_b_3/extension/navigation.dart';
@@ -25,6 +26,7 @@ class _HomeScreenState extends State<HomeScreen> {
     Day15ParsingData(),
     Day16UserScreen(),
     RandomPickerScreen(),
+    Day23GetAPIScreen(),
   ];
   void onItemTap(int index) {
     setState(() {
@@ -82,6 +84,12 @@ class _HomeScreenState extends State<HomeScreen> {
               title: Text("Random Picker"),
               onTap: () {
                 onItemTap(6);
+              },
+            ),
+            ListTile(
+              title: Text("Day 23 (Get API)"),
+              onTap: () {
+                onItemTap(7);
               },
             ),
           ],
