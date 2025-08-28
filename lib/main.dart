@@ -3,6 +3,8 @@ import 'package:intl/date_symbol_data_local.dart';
 import 'package:ppkd_b_3/day_10/login_screen.dart';
 import 'package:ppkd_b_3/day_12/main_screen.dart';
 import 'package:ppkd_b_3/day_16/views/splash_screen.dart';
+import 'package:ppkd_b_3/day_25/view/login_api_screen.dart';
+import 'package:ppkd_b_3/day_25/view/post_api_screen.dart';
 import 'package:ppkd_b_3/day_7/gridview.dart';
 
 void main() {
@@ -42,9 +44,11 @@ class MyApp extends StatelessWidget {
       initialRoute: Day16SplashScreen.id,
       routes: {
         "/login": (context) => LoginScreen(),
+        LoginAPIScreen.id: (context) => LoginAPIScreen(),
         Day16SplashScreen.id: (context) => Day16SplashScreen(),
         Day7GridView.id: (context) => Day7GridView(),
         MainScreen.id: (context) => MainScreen(),
+        PostApiScreen.id: (context) => PostApiScreen(),
       },
       // home: LoginScreen(),
 

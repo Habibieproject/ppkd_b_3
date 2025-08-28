@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:ppkd_b_3/day_12/main_screen.dart';
 import 'package:ppkd_b_3/day_16/sqflite/db_helper.dart';
-import 'package:ppkd_b_3/day_16/views/register_screen.dart';
+import 'package:ppkd_b_3/day_25/view/post_api_screen.dart';
 import 'package:ppkd_b_3/extension/navigation.dart';
 import 'package:ppkd_b_3/preference/shared_preference.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
-  static const id = "/login";
+class LoginAPIScreen extends StatefulWidget {
+  const LoginAPIScreen({super.key});
+  static const id = "/login_api";
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<LoginAPIScreen> createState() => _LoginAPIScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _LoginAPIScreenState extends State<LoginAPIScreen> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   bool isVisibility = false;
@@ -58,7 +58,7 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               height(12),
               Text(
-                "Login to access your account",
+                "Login API to access your account",
                 // style: TextStyle(fontSize: 14, color: AppColor.gray88),
               ),
               height(24),
@@ -182,7 +182,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   TextButton(
                     onPressed: () {
-                      context.push(RegisterScreen());
+                      context.push(PostApiScreen());
                       // Navigator.pushReplacement(
                       //   context,
                       //   MaterialPageRoute(builder: (context) => MeetEmpatA()),

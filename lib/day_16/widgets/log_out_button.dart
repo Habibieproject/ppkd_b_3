@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ppkd_b_3/day_10/login_screen.dart';
-import 'package:ppkd_b_3/day_16/preference/shared_preference.dart';
 import 'package:ppkd_b_3/extension/navigation.dart';
+import 'package:ppkd_b_3/preference/shared_preference.dart';
 
 class LogOutButton extends StatelessWidget {
   const LogOutButton({super.key});

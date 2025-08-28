@@ -1,46 +1,80 @@
 import 'package:flutter/material.dart';
-import 'package:ppkd_b_3/day_12/main_screen.dart';
-import 'package:ppkd_b_3/day_16/sqflite/db_helper.dart';
-import 'package:ppkd_b_3/day_16/views/register_screen.dart';
-import 'package:ppkd_b_3/extension/navigation.dart';
+import 'package:ppkd_b_3/day_25/api/register_user.dart';
+import 'package:ppkd_b_3/day_25/model/register_model.dart';
 import 'package:ppkd_b_3/preference/shared_preference.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
-  static const id = "/login";
+class PostApiScreen extends StatefulWidget {
+  const PostApiScreen({super.key});
+  static const id = '/post_api_screen';
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<PostApiScreen> createState() => _PostApiScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _PostApiScreenState extends State<PostApiScreen> {
   final TextEditingController emailController = TextEditingController();
+  final TextEditingController nameController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  RegisterUserModel? user;
+  String? errorMessage;
   bool isVisibility = false;
+  bool isLoading = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(body: Stack(children: [buildBackground(), buildLayer()]));
   }
 
-  login() async {
+  void registerUser() async {
+    setState(() {
+      isLoading = true;
+      errorMessage = null;
+    });
     final email = emailController.text.trim();
     final password = passwordController.text.trim();
-    if (email.isEmpty || password.isEmpty) {
+    final name = nameController.text.trim();
+    if (email.isEmpty || password.isEmpty || name.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("Email dan Password tidak boleh kosong")),
+        const SnackBar(
+          content: Text("Email, Password, dan Nama tidak boleh kosong"),
+        ),
       );
-      // isLoading = false;
+      isLoading = false;
 
       return;
     }
-    final userData = await DbHelper.loginUser(email, password);
-    if (userData != null) {
-      PreferenceHandler.saveLogin();
-      context.pushReplacementNamed(MainScreen.id);
-    } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("Email atau Password salah")),
+    try {
+      final result = await AuthenticationAPI.registerUser(
+        email: email,
+        password: password,
+        name: name,
       );
+      setState(() {
+        user = result;
+      });
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text("Pendaftaran berhasil")));
+      PreferenceHandler.saveToken(user?.data?.token.toString() ?? "");
+      print(user?.toJson());
+    } catch (e) {
+      print(e);
+      setState(() {
+        errorMessage = e.toString();
+      });
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text(errorMessage.toString())));
+    } finally {
+      setState(() {});
+      isLoading = false;
     }
+    // final user = User(email: email, password: password, name: name);
+    // await DbHelper.registerUser(user);
+    // Future.delayed(const Duration(seconds: 1)).then((value) {
+    //   isLoading = false;
+    //   ScaffoldMessenger.of(
+    //     context,
+    //   ).showSnackBar(const SnackBar(content: Text("Pendaftaran berhasil")));
+    // });
   }
 
   SafeArea buildLayer() {
@@ -53,13 +87,8 @@ class _LoginScreenState extends State<LoginScreen> {
             // crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Text(
-                "Welcome Back",
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-              ),
-              height(12),
-              Text(
-                "Login to access your account",
-                // style: TextStyle(fontSize: 14, color: AppColor.gray88),
+                "Register API",
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
               height(24),
               buildTitle("Email Address"),
@@ -68,7 +97,13 @@ class _LoginScreenState extends State<LoginScreen> {
                 hintText: "Enter your email",
                 controller: emailController,
               ),
-
+              height(16),
+              buildTitle("Name"),
+              height(12),
+              buildTextField(
+                hintText: "Enter your name",
+                controller: nameController,
+              ),
               height(16),
               buildTitle("Password"),
               height(12),
@@ -103,22 +138,24 @@ class _LoginScreenState extends State<LoginScreen> {
                 height: 56,
                 child: ElevatedButton(
                   onPressed: () {
-                    login();
+                    registerUser();
                   },
                   style: ElevatedButton.styleFrom(
-                    // backgroundColor: AppColor.blueButton,
+                    backgroundColor: Colors.blue,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(6),
                     ),
                   ),
-                  child: Text(
-                    "Login",
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
-                  ),
+                  child: isLoading
+                      ? CircularProgressIndicator()
+                      : Text(
+                          "Daftar",
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
+                        ),
                 ),
               ),
               height(16),
@@ -182,7 +219,6 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   TextButton(
                     onPressed: () {
-                      context.push(RegisterScreen());
                       // Navigator.pushReplacement(
                       //   context,
                       //   MaterialPageRoute(builder: (context) => MeetEmpatA()),
