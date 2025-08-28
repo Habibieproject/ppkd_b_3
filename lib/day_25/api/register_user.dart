@@ -16,6 +16,7 @@ class AuthenticationAPI {
     final response = await http.post(
       url,
       body: {"name": name, "email": email, "password": password},
+      headers: {"Accept": "application/json"},
     );
     if (response.statusCode == 200) {
       return RegisterUserModel.fromJson(json.decode(response.body));
