@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ppkd_b_3/day_12/main_screen.dart';
-import 'package:ppkd_b_3/day_16/sqflite/db_helper.dart';
+import 'package:ppkd_b_3/day_25/api/register_user.dart';
 import 'package:ppkd_b_3/day_25/view/post_api_screen.dart';
 import 'package:ppkd_b_3/extension/navigation.dart';
 import 'package:ppkd_b_3/preference/shared_preference.dart';
@@ -32,13 +32,17 @@ class _LoginAPIScreenState extends State<LoginAPIScreen> {
 
       return;
     }
-    final userData = await DbHelper.loginUser(email, password);
-    if (userData != null) {
+    final userData = await AuthenticationAPI.loginUser(
+      email: email,
+      password: password,
+    );
+    if (userData.data != null) {
       PreferenceHandler.saveLogin();
+      PreferenceHandler.saveToken("Bearer ${userData.data?.token}");
       context.pushReplacementNamed(MainScreen.id);
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("Email atau Password salah")),
+        SnackBar(content: Text(userData.message ?? "Login gagal")),
       );
     }
   }
