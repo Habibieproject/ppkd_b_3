@@ -5,6 +5,7 @@ import 'package:ppkd_b_3/day_15/home_a.dart';
 import 'package:ppkd_b_3/day_16/views/user_screen.dart';
 import 'package:ppkd_b_3/day_23/view/get_api.dart';
 import 'package:ppkd_b_3/day_30/image_screen.dart';
+import 'package:ppkd_b_3/day_39/google_maps.dart';
 import 'package:ppkd_b_3/day_4_5/start.dart';
 import 'package:ppkd_b_3/day_6/day_6.dart';
 import 'package:ppkd_b_3/extension/navigation.dart';
@@ -29,6 +30,7 @@ class _HomeScreenState extends State<HomeScreen> {
     RandomPickerScreen(),
     Day23GetAPIScreen(),
     ImagePickerScreen(),
+    GoogleMapsScreen(),
   ];
   void onItemTap(int index) {
     setState(() {
@@ -98,6 +100,12 @@ class _HomeScreenState extends State<HomeScreen> {
               title: Text("Image Picker"),
               onTap: () {
                 onItemTap(8);
+              },
+            ),
+            ListTile(
+              title: Text("Google Mas Screen"),
+              onTap: () {
+                onItemTap(9);
               },
             ),
           ],
